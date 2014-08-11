@@ -39,3 +39,7 @@ add_executable(simple_speech src/simple_speech.cpp)
 add_dependencies(simple_speech DEPENDS simple_speech_gencpp)
 target_link_libraries(simple_speech ${catkin_LIBRARIES})
 
+add_executable(simple_speech_client src/simple_speech_client.cpp)
+add_dependencies(simple_speech_client DEPENDS simple_speech_gencpp)
+target_link_libraries(simple_speech_client ${catkin_LIBRARIES})
+

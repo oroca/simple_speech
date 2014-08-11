@@ -51,6 +51,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "simple_speech");
   ros::NodeHandle nh;
   ros::ServiceServer service  = nh.advertiseService("simple_speech", speech);
+  ROS_INFO("Ready to get a script...");
 
   //--------------------------------------------------------------------------
   ros::Rate loop_rate(10); // 10Hz frequency (0.1 sec)    
