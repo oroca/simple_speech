@@ -1,12 +1,13 @@
 ///-----------------------------------------------------------------------------
 /// @FileName simple_speech
-/// @Date 2014.08.10 / 2013.01.27
+/// @Date 2014.08.11 / 2013.01.27
 /// @author Yoonseok Pyo (passionvirus@gmail.com)
 ///-----------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 #include <ros/ros.h>
 #include <stdlib.h>
+#include <signal.h> 
 #include <string.h>
 #include <stdio.h>
 #include <simple_speech/script.h>
@@ -18,24 +19,29 @@ bool speech(simple_speech::script::Request  &req,
   char cmd[30];
   char say[30];
   char tts[200];
-  int  retval_tts;
-  int  retval_say;
+  int  ret;
 
   strcpy(cmd,"pico2wave --wave ~/say.wav ");
   strcpy(say,"aplay ~/say.wav");
 
-  snprintf(tts, 128, "%s\"%s\"", cmd, req.script.c_str());
-  retval_tts = system(tts);
-  retval_say = system(say);
+  snprintf(tts, 200, "%s\"%s\"", cmd, req.script.c_str());
 
-  if(retval_tts == 127 || retval_say == 127) {        // shell invoke error
-    res.result = 127;
-  } else if (retval_tts ==  0 || retval_say ==  0) {  // null error
+  ret = system(tts);  // make the wav file
+
+  if (ret == -1 || ret == 127) { // fork failed and shell error
     res.result = 0;
-  } else if (retval_tts == -1 || retval_say == -1) {  // error
-    res.result = -1;
-  } else
-    res.result = 1;
+    return false;
+  }
+
+  ret = system(say);  // play the wav file
+
+  if (ret == -1 || ret == 127) { // fork failed and shell error
+    res.result = 0;
+    return false;
+  }
+
+  res.result = 1;
+  return true;
 }
 
 //------------------------------------------------------------------------------
