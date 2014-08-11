@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>simple_speech</name>
+  <version>1.0.1</version>
+  <license>MIT</license>
+  <description>The simple_speech package</description>
+ 
+  <maintainer email="passionvirus@gmail.com">Yoonseok Pyo</maintainer>
+
+  <url type="website">http://oroca.org/</url>
+  <url type="git">https://github.com/oroca</url>
+
+  <author email="passionvirus@gmail.com">Yoonseok Pyo</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>message_runtime</run_depend>
+    
+  <export>
+  </export>
+</package>
